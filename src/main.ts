@@ -16,6 +16,8 @@ import { registerGlobComp } from '/@/components/registerGlobComp'
 
 import { isDevMode } from './utils/env'
 
+import Antd from 'ant-design-vue'; // 全局引入 Antd
+
 if (isDevMode()) {
   import('ant-design-vue/es/style')
 }
@@ -58,6 +60,7 @@ async function bootstrap() {
   // https://next.router.vuejs.org/api/#isready
   // await router.isReady();
 
+  app.use(Antd); // use Antd
   app.mount('#app')
 }
 
