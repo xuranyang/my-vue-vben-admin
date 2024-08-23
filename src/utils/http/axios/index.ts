@@ -256,7 +256,24 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     ),
   )
 }
+
+// 导出一个默认实例，接口地址对应的是环境变量中的 VITE_GLOB_API_URL 接口地址
 export const defHttp = createAxios()
+
+// export const mockHttp = createAxios({
+//   requestOptions: {
+//     apiUrl: '/basic-api',
+//     urlPrefix: '',
+//   },
+// });
+
+// TODO 真实的后端API接口地址
+export const beHttp = createAxios({
+  requestOptions: {
+    apiUrl: 'http://127.0.0.1:8000/basic-api',
+    urlPrefix: '',
+  },
+});
 
 // other api url
 // export const otherHttp = createAxios({
