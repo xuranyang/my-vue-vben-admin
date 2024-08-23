@@ -9,7 +9,7 @@ const about: AppRouteModule = {
   component: LAYOUT,
   redirect: '/about/index',
   meta: {
-    hideChildrenInMenu: true,
+    // hideChildrenInMenu: true,
     icon: 'simple-icons:about-dot-me',
     title: t('routes.dashboard.about'),
     orderNo: 100000,
@@ -23,6 +23,25 @@ const about: AppRouteModule = {
         title: t('routes.dashboard.about'),
         icon: 'simple-icons:about-dot-me',
         hideMenu: true,
+      },
+    },
+    {
+      path: 'https://doc.vvbin.cn/guide/introduction.html',
+      name: 'DocExternal',
+      // component: () => import('/@/views/sys/iframe/FrameBlank.vue'),
+      meta: {
+        title: t('routes.dashboard.documentExternal'),
+        icon: 'logos:vitejs',
+      },
+    },
+    {
+      path: 'doc',
+      name: 'Doc',
+      component: () => import('/@/views/sys/iframe/index.vue'),
+      meta: {
+        frameSrc: 'https://doc.vvbin.cn/guide/introduction.html',
+        title: t('routes.dashboard.documentInternal'),
+        icon: 'devicon:github',
       },
     },
   ],
