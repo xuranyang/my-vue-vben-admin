@@ -87,6 +87,7 @@
       function handleMenuClick(e: MenuInfo) {
         switch (e.key as MenuEvent) {
           case 'logout':
+            // 退出系统
             handleLoginOut()
             break
           case 'doc':
