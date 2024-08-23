@@ -1,21 +1,21 @@
-import type { UserInfo } from '/#/store'
-import type { ErrorMessageMode } from '/#/axios'
-import { defineStore } from 'pinia'
-import { store } from '/@/store'
-import { RoleEnum } from '/@/enums/roleEnum'
-import { PageEnum } from '/@/enums/pageEnum'
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum'
-import { getAuthCache, setAuthCache } from '/@/utils/auth'
-import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel'
-import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user'
-import { useI18n } from '/@/hooks/web/useI18n'
-import { useMessage } from '/@/hooks/web/useMessage'
-import { router } from '/@/router'
-import { usePermissionStore } from '/@/store/modules/permission'
-import { RouteRecordRaw } from 'vue-router'
-import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
-import { isArray } from '/@/utils/is'
-import { h } from 'vue'
+import type {UserInfo} from '/#/store'
+import type {ErrorMessageMode} from '/#/axios'
+import {defineStore} from 'pinia'
+import {store} from '/@/store'
+import {RoleEnum} from '/@/enums/roleEnum'
+import {PageEnum} from '/@/enums/pageEnum'
+import {ROLES_KEY, TOKEN_KEY, USER_INFO_KEY} from '/@/enums/cacheEnum'
+import {getAuthCache, setAuthCache} from '/@/utils/auth'
+import {GetUserInfoModel, LoginParams} from '/@/api/sys/model/userModel'
+import {doLogout, getUserInfo, loginApi} from '/@/api/sys/user'
+import {useI18n} from '/@/hooks/web/useI18n'
+import {useMessage} from '/@/hooks/web/useMessage'
+import {router} from '/@/router'
+import {usePermissionStore} from '/@/store/modules/permission'
+import {RouteRecordRaw} from 'vue-router'
+import {PAGE_NOT_FOUND_ROUTE} from '/@/router/routes/basic'
+import {isArray} from '/@/utils/is'
+import {h} from 'vue'
 
 interface UserState {
   userInfo: Nullable<UserInfo>
@@ -89,9 +89,11 @@ export const useUserStore = defineStore({
       },
     ): Promise<GetUserInfoModel | null> {
       try {
-        const { goHome = true, mode, ...loginParams } = params
+        const {goHome = true, mode, ...loginParams} = params
+        // login登录
+        console.log("【LoginAPI】:", params)
         const data = await loginApi(loginParams, mode)
-        const { token } = data
+        const {token} = data
 
         // save token
         this.setToken(token)
@@ -125,7 +127,7 @@ export const useUserStore = defineStore({
     async getUserInfoAction(): Promise<UserInfo | null> {
       if (!this.getToken) return null
       const userInfo = await getUserInfo()
-      const { roles = [] } = userInfo
+      const {roles = []} = userInfo
       if (isArray(roles)) {
         const roleList = roles.map((item) => item.value) as RoleEnum[]
         this.setRoleList(roleList)
@@ -142,6 +144,7 @@ export const useUserStore = defineStore({
     async logout(goLogin = false) {
       if (this.getToken) {
         try {
+          console.log('注销Token')
           await doLogout()
         } catch {
           console.log('注销Token失败')
@@ -157,14 +160,15 @@ export const useUserStore = defineStore({
      * @description: Confirm before logging out
      */
     confirmLoginOut() {
-      const { createConfirm } = useMessage()
-      const { t } = useI18n()
+      const {createConfirm} = useMessage()
+      const {t} = useI18n()
       createConfirm({
         iconType: 'warning',
         title: () => h('span', t('sys.app.Tip')),
         content: () => h('span', t('sys.app.logoutMessage')),
         onOk: async () => {
           await this.logout(true)
+          // ...
         },
       })
     },
