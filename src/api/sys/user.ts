@@ -40,7 +40,8 @@ export function getPermCode() {
 }
 
 export function doLogout() {
-  return defHttp.get({url: Api.Logout})
+  // defHttp -> beHttp
+  return beHttp.get({url: Api.Logout})
 }
 
 export function testRetry() {
