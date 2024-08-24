@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <PageWrapper title="命名标准-词根管理">
-      <template #headerContent>
-        <div>实现统一的词根命名标准</div>
-      </template>
-    </PageWrapper>
+  <PageWrapper title="命名标准-词根管理">
+    <template #headerContent>
+      <div>实现统一的词根命名标准</div>
+    </template>
 
     <a-layout-content
-      :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
+      :style="{ margin: '0px 16px 0px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
     >
       <a-input-search
         style="width: 20%; margin-bottom: 8px; margin-right: 5px"
@@ -25,7 +23,7 @@
         shape="round"
         class="green-button"
         style="float: right; margin-right: 5%"
-        >新增
+      >新增
       </a-button>
 
       <a-table :dataSource="nameRulesFilter" :columns="nameRulesColumns">
@@ -42,7 +40,7 @@
         </template>
       </a-table>
     </a-layout-content>
-  </div>
+  </PageWrapper>
 </template>
 
 <script setup lang="ts">
